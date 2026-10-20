@@ -1,0 +1,118 @@
+= Taxonomic Infrastructure
+:icons: font
+:iconfont-cdn: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css
+:stylesdir: resources/style/
+:stylesheet: asciidoctor.css
+:description: NSL Service
+:keywords: documentation, Grails, National Species List, Taxonomy, Taxonomic
+:links:
+:sectlinks:
+:toc: left
+:toclevels: 2
+:toc-class: toc2
+
+image:https://travis-ci.org/bio-org-au/services-g3.svg?branch=master["Build Status", link="https://travis-ci.org/bio-org-au/services-g3"]
+
+This is the NSL (National Species List) Services Application developed at the Australian National Botanic Gardens in
+association with CHAH, the ALA and the IBIS team.
+
+== Services
+
+The NSL services provide a relatively generic set of services for searching Names, References and Authors as well as
+accessing classification trees of taxons.
+
+The NSL is (and probably always will be) a work in progress, we'll be adding a roadmap and more doco here as we go.
+
+This code is Licensed under the Apache 2 License and we welcome contributions from the taxonomic community.
+
+Please use Github issues for any bug reports.
+
+== Shard ID ranges
+
+For Australian NSL infrastructure we are splitting the ID ranges used across different known shards. This is *not* essential
+but it does mean we have a means to discriminate data sources on IDs if somehow we manage to loose track.
+
+The current allocated ranges are:
+
+* Vascular (APNI) 1000 - 10,000,000 + 50,000,001 - 60,000,000
+* Moss 10,000,001 - 20,000,000
+* Algae 20,000,001 - 30,000,000
+* Lichen 30,000,001 - 40,000,000
+* DAWR 40,000,001 - 50,000,000 (Aust. Dept. of Agriculture and Water Resources)
+* Fungi 60,000,001 - 70,000,000
+* AFD 70,000,001 - 80,000,000
+
+There is a confluence page for the NSL infrastructure as well at https://www.anbg.gov.au/ibis25/pages/viewpage.action?spaceKey=NSL&title=NSL+Project+2.0
+
+== Building and Running
+
+This is a standard https://grails.org/[Grails] 5 project. You can use all the standard grails tasks to build and run
+this project. You will need some supporting services i.e.
+
+. A mapper
+. postgresql database with the NSL schema loaded
+. LDAP with users
+
+TIP: See <<Developing with supporting services>> below for how to get these running for development using the included docker-compose scripts.
+
+There are two dependencies you need to build and install in your local maven before running services, grails-shiro and nsl-domain-plugin.
+
+. `git clone git@github.com:bio-org-au/grails-shiro.git ; cd grails-shiro ; ./gradlew publishToMavenLocal`
+. `git clone git@github.com:bio-org-au/nsl-domain-plugin-g3.git ; cd nsl-domain-plugin-g3 ; ./gradlew publishToMavenLocal`
+
+To run the services in development mode just run `grails run-app` which will run up the service in it's own tomcat instance
+locally. You can also use the gradle task `bootRun` e.g. `./gradlew bootRun`.
+
+To create a runnable war, or a war that can be installed in Tomcat run `./gradlew bootWar`
+
+The services work nicely within IntelliJ IDEA just import the project.
+
+=== Building and deploying docker image.
+To build a war file you can use `grails war` or you can use `./gradlew assemble`. This will build a war file and put it
+in the `build/libs` directory.
+
+To publish to docker use the gradle task `./gradlew dockerPublish`. Note you will have to be logged into docker hub to
+publish.
+
+WARNING: Note we're currently publishing to `biodiversity/` on docker hub. Change the `dockerRepo` property in the
+`gradle.properties` file to your own repository.
+
+NOTE: The docker image runs the services as the nsl_user UID: 5000 GID: 5000 in the container. This user will be mapped
+to the host user:group with those IDs. It may be useful to assign a user to that ID in the host, but not essential.
+
+=== Developing with supporting services
+
+We have supplied a docker-compose driven script to run up a mapper and ldap server. Follow thes steps to get it running:
+
+. Install docker, use the docs/docker.adoc document as a guide.
+. Make sure the environment variables in the `bin/devel-up.sh` script are correct, mainly that the postgresql port is correct.
+. The script will alter your database to make the mapper tables point at "biodiversity.local", So you'll need to add the following
+lines to `/etc/hosts` before you run it:
+
+  127.0.0.1 biodiversity.local
+  127.0.0.1 id.biodiversity.local
+
+. run the script `bin/devel-up.sh
+
+The script uses docker-compose up to run the mapper and ldap. The LDAP is at port 10389 and the mapper is on port 7070.
+
+WARNING: This exposes the ports on the host machine, so the services won't work if you run them via the included Dockerfile,
+as that runs within *another* docker container and doesn't have a network connection/route to the exposed ports.
+
+By default the `grails run-app` or `./gradlew bootRun` will try and use the config file at
+`"${projectDir.absolutePath}/etc/nsl/services-config-g3.groovy"` (see build.gradle task bootRun). This expects the
+
+TIP: The LDAP server include has a user called *test* with the password *test* so you can log into the editor and the
+services
+
+* database to be at localhost:5432,
+* the mapper to be at biodiversity.local:7070
+* ldap to be at biodiversity.local:10389
+* will create mapper links that point to http://id.biodiversity.local:7070/broker/...
+
+==== Stopping the docker containers
+
+to stop the mapper and ldap run `bin/devel-down.sh`.
+
+
+

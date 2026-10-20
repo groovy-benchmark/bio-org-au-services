@@ -1,0 +1,233 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.grails.org/grails/core" }
+//        jcenter()
+    }
+    dependencies {
+        classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
+        classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.6"
+        classpath "org.grails.plugins:hibernate5:7.3.0"
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.4.7"
+
+        classpath "org.grails.plugins:views-gradle:2.2.0"
+        classpath "org.asciidoctor:asciidoctor-gradle-plugin:1.6.1"
+    }
+}
+
+version "1.0236"
+group "services3"
+
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin:"org.grails.grails-web"
+apply plugin:"com.github.erdi.webdriver-binaries"
+apply plugin: "org.grails.grails-gsp"
+apply plugin:"com.bertramlabs.asset-pipeline"
+apply plugin: 'org.asciidoctor.convert'
+
+//war.archiveName("nsl#services##${rootProject.version}.war")
+war {
+    archiveFileName = "nsl#services-tomcat.war"
+}
+bootWar {
+    archiveFileName = "nsl#services.war"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.grails.org/grails/core" }
+//    maven { url "https://dl.bintray.com/nerderg/plugins" }
+//    maven {
+//        url "https://oss.jfrog.org/artifactory/oss-snapshot-local"
+//    }
+//    maven { url "https://dl.bintray.com/bio-org-au/plugins" }
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    compileOnly "io.micronaut:micronaut-inject-groovy"
+    console "org.grails:grails-console"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation "org.grails:grails-core"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.grails:grails-web-boot"
+    implementation "org.grails:grails-logging"
+    implementation "org.grails:grails-plugin-rest"
+    implementation "org.grails:grails-plugin-databinding"
+    implementation "org.grails:grails-plugin-i18n"
+    implementation "org.grails:grails-plugin-services"
+    implementation "org.grails:grails-plugin-url-mappings"
+    implementation "org.grails:grails-plugin-interceptors"
+    implementation "org.grails.plugins:cache"
+    implementation "org.grails.plugins:async"
+    implementation "org.grails.plugins:scaffolding"
+    implementation "org.grails.plugins:hibernate5"
+    implementation "org.hibernate:hibernate-core:5.6.11.Final"
+    implementation "org.grails.plugins:events"
+    implementation "org.grails.plugins:gsp"
+    profile "org.grails.profiles:web"
+    runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
+    runtimeOnly "com.h2database:h2"
+    runtimeOnly "org.apache.tomcat:tomcat-jdbc"
+    runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
+    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.4.7"
+    testImplementation "io.micronaut:micronaut-inject-groovy"
+    testImplementation "org.grails:grails-gorm-testing-support"
+    testImplementation "org.mockito:mockito-core"
+    testImplementation "org.grails:grails-web-testing-support"
+    testImplementation "org.grails.plugins:geb"
+    testImplementation "org.seleniumhq.selenium:selenium-remote-driver:4.0.0"
+    testImplementation "org.seleniumhq.selenium:selenium-api:4.0.0"
+    testImplementation "org.seleniumhq.selenium:selenium-support:4.0.0"
+    testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:4.0.0"
+    testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:4.0.0"
+
+    // application plugins
+//    compile "au.org.biodiversity.grails.plugins:nsl-domain-plugin-g3:3.1.21-SNAPSHOT"
+    implementation 'com.nerderg.plugins:SimpleSuggestions3:1.1'
+    implementation "org.grails.plugins:grails-shiro:4.5"
+    implementation "org.grails.plugins:converters:4.0.1"
+    implementation 'dk.glasius:external-config:3.1.0' // Non Standard
+
+    implementation "org.quartz-scheduler:quartz:2.3.2"
+    implementation 'org.grails.plugins:quartz:2.0.13'
+//    runtime 'org.grails.plugins:async:4.0.0'
+    implementation 'org.grails:grails-datastore-rest-client:6.1.12.RELEASE'
+    runtimeOnly 'org.codehaus.groovy:groovy-dateutil'
+
+    //other dependencies
+    implementation 'net.htmlparser.jericho:jericho-html:3.2'
+    implementation "io.jsonwebtoken:jjwt:0.9.1"
+    implementation 'joda-time:joda-time:2.10.13'
+    implementation 'org.postgresql:postgresql:42.7.2'
+
+    implementation 'net.sf.supercsv:super-csv:2.4.0'
+
+//    console "org.grails:grails-console"
+//    profile "org.grails.profiles:web"
+//    runtime "org.glassfish.web:el-impl:2.1.2-b03"
+//    runtime "com.h2database:h2"
+//    runtime "org.apache.tomcat:tomcat-jdbc"
+//    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.15.1"
+
+
+//    testCompile "org.grails:grails-gorm-testing-support"
+//    testCompile "org.grails.plugins:geb"
+//    testCompile "org.grails:grails-web-testing-support"
+//    testCompile "org.grails.plugins:geb:1.1.2"
+//    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+//    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+//    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:2.47.1"
+//    implementation project(":nsl-domain-plugin-g3")
+    implementation "au.org.biodiversity.grails.plugins:nsl-domain-plugin-g3:3.5.1-SNAPSHOT"
+    // application plugins
+    implementation "au.org.biodiversity.grails.plugins:nsl-domain-plugin-g3:3.6.2"
+    implementation "org.apache.shiro:shiro-core:1.13.0"
+    implementation "org.apache.shiro:shiro-web:1.13.0"
+
+//    implementation 'org.ysb33r.gradle:grolifant:0.9'
+//    implementation 'org.ysb33r.gradle:grolifant60:4.0.0'
+}
+
+
+springBoot { mainClass = 'services3.Application' }
+
+bootRun {
+    ignoreExitValue true
+    jvmArgs(
+            '-Dspring.output.ansi.enabled=always',
+            '-noverify',
+            '-XX:TieredStopAtLevel=1',
+            '-Xmx2G',
+            '-Xms2G')
+    //environment "nsl_services_config", "${projectDir.absolutePath}/etc/nsl/services-config-g3.groovy"
+//    addResources = true
+    sourceResources sourceSets.main
+    String springProfilesActive = 'spring.profiles.active'
+    systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+}
+
+tasks.withType(GroovyCompile) {
+    configure(groovyOptions) {
+        forkOptions.jvmArgs = ['-Xmx1024m']
+    }
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperty "geb.env", System.getProperty('geb.env')
+    systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+    systemProperty "webdriver.chrome.driver", System.getProperty('webdriver.chrome.driver')
+    systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
+}
+
+bootJar.enabled = true
+
+// NOTE: do not set assets.packagePlugin=true here - it is for library/plugin
+// projects and makes the build skip asset precompilation. Without
+// precompilation the war ships raw assets with no manifest, so in production
+// asset-pipeline serves everything with Cache-Control: no-cache and
+// ?compile=false URLs (see AssetPipelineFilter).
+
+asciidoctor {
+    sourceDir = file("docs")
+    sources {
+        include "index.adoc"
+    }
+
+    resources {
+        from("$sourceDir/resources/images")
+        into './resources/images'
+    }
+
+    attributes 'source-highlighter': 'coderay',
+            toc: '',
+            idprefix: '',
+            idseparator: '-'
+
+    outputDir = file("build/docs")
+}
+
+task dockerPublish() {
+    dependsOn(assemble)
+    doFirst {
+        exec {
+            workingDir(projectDir)
+            ignoreExitValue(true)
+            commandLine '/usr/bin/docker', 'image', 'rm', 'nsl-services'
+        }
+    }
+    doLast {
+        exec {
+            workingDir(projectDir)
+            commandLine '/usr/bin/docker', 'build', '--tag=nsl-services', '.'
+        }
+        exec {
+            workingDir(projectDir)
+            commandLine "/usr/bin/docker", "tag", "nsl-services", "${dockerRepo}/nsl-services:${version}-SNAP"
+        }
+        exec {
+            workingDir(projectDir)
+            commandLine "/usr/bin/docker", "push", "${dockerRepo}/nsl-services:${version}-SNAP"
+        }
+    }
+}
+
+buildProperties {
+    inputs.property("info.app.build.date", new Date().format('yyyy-MM-dd HH:mm:ss'))
+}

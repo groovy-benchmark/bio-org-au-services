@@ -1,0 +1,589 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= encoding UTF-8
+*= require jquery-ui.min
+*= require jquery-ui.theme
+*= require apni-format
+*= require sparql-search
+*= require_self
+*/
+
+@media print {
+    .footer {
+        display: none;
+    }
+
+    div#main-content {
+        height: 100%;
+        overflow: visible;
+    }
+}
+
+branch {
+    position: relative;
+}
+
+branch ul {
+    display: none;
+}
+
+.pop-classify {
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: white;
+    width: inherit;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+body {
+    min-width: 400px !important;
+    min-height: 100vh;
+    background-color: #EEEEEE;
+}
+
+body.test {
+    border-left: #7a43b6 15px solid;
+}
+
+body.local {
+    border-left: #41b622 15px solid;
+}
+
+body.stage {
+    border-left: #2e3ab6 15px solid;
+}
+
+div.logo {
+    font-size: 1.5em;
+    color: darkolivegreen;
+    /*background-color: #ECECE3;*/
+    border-radius: 6px;
+    font-family: "Bookman", Georgia, "Times New Roman", serif;
+    padding: 6px;
+}
+
+#main-content {
+    margin-top: 1vh;
+    background-color: white;
+    height: calc(98vh - 189px);
+    overflow: auto;
+}
+
+.nsl {
+    display: inline;
+}
+
+.tree {
+    background-color: #0080002b;
+}
+
+.bibliography {
+    background-color: #0d8fff2b;
+}
+
+.nav-tabs {
+    margin-top: 1rem;
+}
+
+.tab-content {
+    padding-top: 1rem;
+}
+
+.results-header {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.ui-autocomplete {
+    z-index: 10000;
+}
+
+.left {
+    float: left;
+    margin-right: 2rem;
+    border-right: 2px solid lightgrey;
+}
+
+.boxed {
+    border: 2px solid lightgrey;
+    border-radius: 4px;
+    display: flow-root;
+    box-shadow: #333333 0 5px 10px;
+}
+
+.boxed-content {
+    padding-top: 2rem;
+}
+
+.slider {
+    animation-duration: 10s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes slidein {
+    from {
+        margin-left: 80%;
+        width: 100%;
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}
+
+
+@media (min-width: 992px) and (max-width: 1100px) {
+    div.logo img {
+        -ms-transform: rotate(90deg) translate(50px, 50px);
+        -webkit-transform: rotate(90deg) translate(50px, 50px);
+        -moz-transform: rotate(90deg) translate(50px, 50px);
+        transform: rotate(90deg) translate(50px, 50px);
+        margin-bottom: 130px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .nsl {
+        white-space: nowrap;
+        display: block;
+    }
+}
+
+@media (max-width: 1030px) {
+    twitter {
+        display: none;
+    }
+}
+
+div.logo p {
+    display: inline-block;
+    margin: 0;
+    line-height: 1.3;
+}
+
+div.logo p::first-letter {
+    font-size: 1.5em;
+}
+
+div.logo div.sublogo {
+    display: inline-block;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 0.9em;
+    color: #66512c;
+}
+
+div#page-footer {
+
+    background: white none repeat scroll 0 0;
+    color: black;
+    border-top: 1px solid gray;
+    bottom: 0;
+    height: 65px;
+    position: fixed;
+    width: 100vw;
+    padding-top: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    left: 0;
+
+}
+
+div#page-footer a.twitter-link {
+    color: #55acee;
+}
+
+span#page-footer-inner-right {
+    display: inline-block;
+    margin-top: 1em;
+}
+
+div#main-content {
+    margin-bottom: 75px;
+    padding-top: 3rem;
+    padding-left: 3rem;
+    padding-bottom: 0.5rem;
+}
+
+li.login-form {
+    margin-right: 5em;
+    min-width: 10em;
+}
+
+.navbar-form {
+    padding: 0.5em;
+}
+
+/* styles for basic CRUD pages */
+li.fieldcontain {
+    display: block;
+}
+
+li.fieldcontain span {
+    display: block;
+}
+
+li.fieldcontain span.property-label {
+    font-weight: bold;
+}
+
+li.fieldcontain span.property-value {
+    padding-left: 20px;
+}
+
+.scaffold-list tr {
+    display: table-row;
+}
+
+.scaffold-list th,
+.scaffold-list td {
+    display: table-cell;
+    padding-right: 1em;
+}
+
+div.pagination a,
+div.pagination span {
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+div.pagination span.currentStep {
+    border: solid #017cc6 1px;
+    border-radius: 5px;
+}
+
+div.pagination a {
+    border: solid #b3b3b3 1px;
+    border-radius: 5px;
+}
+
+.green {
+    color: #0ccf00;
+}
+
+a {
+    color: #023C6E;
+}
+
+a:hover {
+    color: #0271c2;
+}
+
+.well {
+    background-color: #FAFAF8;
+}
+
+.vertbar {
+    border-left: 1px grey solid;
+    padding-left: 5px;
+}
+
+.limit {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.rest-resource-content {
+    padding-left: 15px;
+
+}
+
+.see-through {
+    opacity: 0.5;
+}
+
+.text-default {
+    color: black;
+}
+
+.form-control {
+!important;
+    font-weight: normal;
+}
+
+#max {
+    margin-right: -80px;
+}
+
+.imageAndText {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    height: 75px;
+}
+
+.imageAndText img {
+    float: right;
+    margin-right: 0px;
+    margin-left: auto;
+}
+
+.imageAndText .col {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    text-shadow: -1px -1px 0 #eee,
+    1px -1px 0 #eee,
+    -1px 1px 0 #eee,
+    1px 1px 0 #eee;
+}
+
+.imageAndText h1 {
+    font-size: 46px;
+}
+
+.diffBefore,
+.diffAfter {
+    width: 50vw;
+    overflow: auto;
+}
+
+label.disabled {
+    color: grey;
+    text-decoration: grey line-through;
+}
+
+.conflicting {
+    border-left: 2px solid red;
+    padding-left: 1em;
+}
+
+.nonConflicting {
+    border-left: 2px solid green;
+    padding-left: 1em;
+}
+
+.diffBefore, .Removed {
+    border-left: 10px solid rgba(235, 21, 31, 0.1);
+    background-color: rgba(235, 21, 31, 0.02);
+}
+
+.diffAfter, .Added {
+    border-left: 10px solid rgba(12, 235, 2, 0.1);
+    background-color: rgba(12, 235, 2, 0.02);
+}
+
+.Removed span.change-description {
+    font-weight: bold;
+    color: red;
+}
+
+.Added span.change-description {
+    font-weight: bold;
+    color: green;
+}
+
+.Modified span.change-description {
+    font-weight: bold;
+    color: purple;
+}
+
+.Unchanged span.change-description {
+    font-weight: bold;
+    color: grey;
+}
+
+.Modified {
+    border-left: 10px solid rgba(3, 19, 235, 0.1);
+    background-color: rgba(4, 31, 235, 0.02);
+}
+
+.Unchanged {
+    border-left: 10px solid rgba(167, 156, 160, 0.11);
+}
+
+.missing {
+    display: inline;
+    background-color: RGBA(256, 256, 0, 0.30) !important;
+    border-bottom: 2px solid red;
+}
+
+.added {
+    display: inline;
+    background-color: RGBA(256, 256, 0, 0.30) !important;
+    border-bottom: 2px solid #0cff2e;
+}
+
+.noTop > td {
+    border-top: none !important;
+}
+
+.noBottom > td {
+    border-bottom: none !important;
+}
+
+tr.sep {
+    border-top: 3px solid grey;
+}
+
+h3.sep {
+    border-bottom: 1px solid grey;
+}
+
+hybrid {
+    visibility: hidden;
+    margin-right: 0;
+    margin-left: -6px;
+}
+
+hybrid::after {
+    content: '×';
+    visibility: visible;
+}
+
+hybrid[title="intergrade"]::after {
+    content: '-';
+    margin-right: 0;
+}
+
+/* Audit screen tr line height hover style */
+div[class^="height-nsl"] {
+    /*max-height: 3em;*/
+    /*overflow: hidden;*/
+    /*transition-delay: 5s;*/
+}
+
+/* Audit screen tr line height hover style */
+div[class^="height-nsl"]:hover {
+    max-height: 100%;
+    transition-delay: 1s;
+}
+
+/* Audit screen tr styles */
+tr[class^="editor-web"] {
+    background-color: #fcf7ff;
+}
+
+/* Audit screen header 1 styles */
+.stats-h1 {
+    background-color: #EEEEEE;
+}
+
+/* Audit screen header 2 styles */
+.stats-h2 {
+    background-color:ivory;
+}
+
+/* Audit screen Search button margin top to align it*/
+.audit-search {
+    margin-top: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+/*Audit screen styles for synonymy diff to place one element per line*/
+div[class^="height-"] div.diffBefore > synonyms > mis,
+div[class^="height-"] div.diffBefore > synonyms > mis::after,
+div[class^="height-"] div.diffBefore > synonyms > nom,
+div[class^="height-"] div.diffBefore > synonyms > nom::after,
+div[class^="height-"] div.diffBefore > synonyms > tax,
+div[class^="height-"] div.diffBefore > synonyms > tax::after,
+div[class^="height-"] div.diffAfter > synonyms > mis,
+div[class^="height-"] div.diffAfter > synonyms > mis::after,
+div[class^="height-"] div.diffAfter > synonyms > nom,
+div[class^="height-"] div.diffAfter > synonyms > nom::after,
+div[class^="height-"] div.diffAfter > synonyms > tax,
+div[class^="height-"] div.diffAfter > synonyms > tax::after {
+    line-height: 1.6;
+    content: "\A";
+    white-space: pre;
+}
+
+/* Apply padding top and bottom to an element */
+.padded {
+    padding: 0.2em 0 0.2em 0;
+}
+
+table.audit-report th {
+    text-align: center;
+}
+
+table.audit-report td.data {
+    text-align: center;
+}
+
+@media (max-width: 1500px) {
+    .imageAndText h1 {
+        font-size: calc(12px + 2vw);
+    }
+}
+
+@media (max-width: 400px) {
+    .imageAndText h1 {
+        font-size: 20px;
+    }
+}
+
+div.debug {
+    border: 1px solid green;
+    padding: 1em;
+    background-color: rgba(92, 184, 92, 0.65);
+}
+
+.lines-6 {
+    max-height: 8rem;
+    overflow: auto;
+}
+
+.log-output {
+    font-family: monospace;
+    font-size: 0.7em;
+    height: 300px;
+    overflow: auto;
+    white-space: pre
+}
+
+.small {
+    font-size: 0.6em;
+}
+
+.fa-arrows-alt-v {
+    color: royalblue;
+}
+
+.alert {
+    margin-top: 20px;
+}
+
+.btn-light {
+    margin-bottom: 1em;
+}
+
+.linkbutton {
+    display: inline;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
+    color: currentColor;
+
+    -webkit-appearance: none;
+}
