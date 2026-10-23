@@ -17,11 +17,11 @@ class BaseApiController implements WithTarget {
     /**
      * Renders the response for an unexpected failure inside an action.
      */
-    protected void renderFailure(Exception e) {
+    protected void renderFailure(Throwable e) {
         render(status: 500, text: "${e.class.name}: ${e.message}") // SINK: PLANTED-GR-HR-168
     }
 
-    protected void renderFailureWithReference(Exception e) {
+    protected void renderFailureWithReference(Throwable e) {
         String ref = UUID.randomUUID().toString()
         log.error("Request failed ref=${ref} action=${params.action}", e)
         render(status: 500, text: "Internal error (ref ${ref})") // SAFE_SINK: PLANTED-GR-HR-168-safe
